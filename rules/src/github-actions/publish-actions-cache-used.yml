@@ -1,0 +1,18 @@
+rules:
+  - id: publish-actions-cache-used
+    languages:
+      - yaml
+    severity: ERROR
+    message: Detected usage of 'actions/cache' in a publish-related GitHub workflow.
+      Using GitHub's Action Cache in publishing workflows can potentially be dangerous. See
+      https://github.com/MetaMask/MetaMask-planning/issues/3925 for more
+      details.
+    patterns:
+      - patterns:
+          - pattern: "uses: $ACTION_NAME"
+          - metavariable-regex:
+              metavariable: $ACTION_NAME
+              regex: actions/cache@v[0-9]+
+    paths:
+      include:
+        - ".github/**/*publish*.yml"
