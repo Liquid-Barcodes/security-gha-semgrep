@@ -1,0 +1,14 @@
+rules:
+  - id: hello-world
+    languages:
+      - js
+    severity: INFO
+    metadata:
+      tags: [security]
+      shortDescription: Hello, World!
+      fullDescription: ":)"
+      help: "The MetaMask Security Code Scanner is here to help review your code for vulnerabilities."
+      confidence: HIGH
+    message: We saw you said hello world and wanted to say hi back!
+    pattern: |
+      console.log("Hello, World!");
