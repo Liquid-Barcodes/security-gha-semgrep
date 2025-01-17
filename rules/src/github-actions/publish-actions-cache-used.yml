@@ -3,10 +3,16 @@ rules:
     languages:
       - yaml
     severity: ERROR
-    message: Detected usage of 'actions/cache' in a publish-related GitHub workflow.
-      Using GitHub's Action Cache in publishing workflows can potentially be dangerous. See
-      https://github.com/MetaMask/MetaMask-planning/issues/3925 for more
-      details.
+    metadata:
+      tags: [security]
+      shortDescription: Potential cache poisoning risk by using `actions/cache` in a publishing workflow.
+      help: |
+        ## Remediation
+        We recommend avoiding using `actions/cache` if this workflow publishes a release, or has access to sensitive secrets. 
+        If caching is required, please see https://github.com/MetaMask/MetaMask-planning/issues/3925 for a workaround.
+    message: >-
+        Using GitHub's Action Cache in publishing workflows, especially in open source repositories, can be dangerous. See
+        https://github.com/MetaMask/MetaMask-planning/issues/3925 for more details and alternative recommendations.
     patterns:
       - patterns:
           - pattern: "uses: $ACTION_NAME"
