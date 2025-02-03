@@ -2,7 +2,7 @@ rules:
   - id: publish-actions-cache-used
     languages:
       - yaml
-    severity: ERROR
+    severity: warning
     metadata:
       tags: [security]
       shortDescription: Potential cache poisoning risk by using `actions/cache` in a publishing workflow.
