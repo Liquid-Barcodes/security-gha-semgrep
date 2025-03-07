@@ -65,7 +65,7 @@ rules:
 <img width="600" alt="" src="https://github.com/user-attachments/assets/e918311f-94d8-4be0-86d8-cc6c30853740" />
 
 
-## Testing Your Rules
+## Writing Tests For Your Rules
 
 Testing is a critical step in ensuring the quality and reliability of your rules. Follow these steps:
 
@@ -86,6 +86,16 @@ Testing is a critical step in ensuring the quality and reliability of your rules
      ```bash
      ./bin/test
      ```
+
+## Testing Rules Against Local Repositories
+
+If you would like to test your rules against a local folder or directory on your machine, you can run the following command to perform a local scan:
+
+```bash
+./bin/scan path/to/directory
+```
+
+Note that Semgrep will scan _all_ files within the specified directory. In other words, if the directory contains multiple repositories, all of them will be scanned at once.
 
 ## Contribution Workflow
 
