@@ -19,7 +19,7 @@ runs:
         cat .semgrepignore
       shell: bash
 
-    - name: Run Semgrep Scan
+    - name: Semgrep
       run: |
         semgrep \
           --config p/default \
@@ -32,6 +32,12 @@ runs:
           --json-output semgrep-report.json
       shell: bash
       continue-on-error: true
+
+    - name: Export report
+      shell: bash
+      run: |
+        cat semgrep-report.json
+        
 
 # This requires full GHAS Code Scanning enabled for the repo.
 # watch your money burn!
