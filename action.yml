@@ -21,10 +21,8 @@ runs:
 
     - name: Run Semgrep Scan
       run: |
-        echo "::group::Semgrep Security Scan"
         semgrep --config p/default --config p/owasp-top-ten --config p/security-audit --config p/ci --config p/csharp --config ${{ github.action_path }}/rules/src --verbose --metrics=off
         # --output semgrep-results.sarif --sarif --verbose
-        echo "::endgroup::"
       shell: bash
       continue-on-error: true
 
