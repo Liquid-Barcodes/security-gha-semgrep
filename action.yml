@@ -14,7 +14,6 @@ runs:
       uses: actions/checkout@v4
 
     - name: Install dependencies
-      shell: bash
       run: |
         apt install -y python3-pip
 
