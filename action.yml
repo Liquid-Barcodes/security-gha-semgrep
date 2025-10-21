@@ -13,11 +13,6 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Install Semgrep
-      run: |
-        pip install semgrep
-      shell: bash
-
     - name: Generate .semgrepignore
       run: |
         echo "${{ inputs.paths_ignored }}" > .semgrepignore
