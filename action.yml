@@ -46,5 +46,5 @@ runs:
           -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -F "file=@semgrep-report.json" \
           -F "scan_type=Semgrep JSON Report" \
-          "https://${{ inputs.defectdojo_host }}/api/v2/import-scan/
+          "https://${{ inputs.defectdojo_host }}/api/v2/import-scan/"
 
