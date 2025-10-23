@@ -2,16 +2,6 @@ name: Code Scanning (Semgrep)
 description: "Runs a Semgrep scan on a repository and uploads the results to GitHub"
 
 inputs:
-  defectdojo_token:
-    description: "Token to use to submit data to DefectDojo"
-    required: true
-  defectdojo_host:
-    description: "Hostname of DefectDojo"
-    required: true
-  defectdojo_product_name:
-    description: "Product name"
-    required: false
-    default: "github"
   paths_ignored:
     description: "List of paths or patterns to ignore"
     required: false
@@ -34,18 +24,6 @@ runs:
           --config p/csharp \
           --config ${{ github.action_path }}/rules/src \
           --verbose --metrics=off --force-color \
-          --json-output semgrep-report.json
+          --json-output semgrep.json
       shell: bash
       continue-on-error: true
-
-    - name: DefectDojo upload semgrep findings
-      shell: bash
-      run: |
-        curl -sS -X POST \
-          -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
-          -F "file=@semgrep-report.json" \
-          -F "scan_type=Semgrep JSON Report" \
-          -F "product_name=${{ inputs.defectdojo_product_name }}" \
-          -F "engagement_name=CICD" \
-          "https://${{ inputs.defectdojo_host }}/api/v2/import-scan/"
-
