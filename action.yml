@@ -2,6 +2,9 @@ name: Code Scanning (Semgrep)
 description: "Runs a Semgrep scan on a repository and uploads the results to GitHub"
 
 inputs:
+  defectdojo_token:
+    description: "Token to use to submit data to DefectDojo"
+    required: true
   paths_ignored:
     description: "List of paths or patterns to ignore"
     required: false
@@ -36,10 +39,8 @@ runs:
     - name: Upload to DefectDojo
       run: |
         curl -sS -X POST \
-          -H "Authorization: Token $DEFECTDOJO_API_TOKEN" \
+          -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -F "file=@semgrep-report.json" \
           -F "scan_type=Semgrep JSON Report" \
           https://defectdojo.lb-admin.dev/api/v2/import-scan/
-      env:
-        DEFECTDOJO_API_TOKEN: ${{ secrets.DEFECTDOJO_API_TOKEN }}
 
