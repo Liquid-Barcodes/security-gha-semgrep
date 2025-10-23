@@ -8,6 +8,14 @@ inputs:
   defectdojo_host:
     description: "Hostname of DefectDojo"
     required: true
+  defectdojo_product_name:
+    description: "Product name"
+    required: false
+    default: "github"
+  defectdojo_engagement_name:
+    description: "Engagement name"
+    required: false
+    default: "github"
   paths_ignored:
     description: "List of paths or patterns to ignore"
     required: false
@@ -46,5 +54,7 @@ runs:
           -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -F "file=@semgrep-report.json" \
           -F "scan_type=Semgrep JSON Report" \
+          -F "product_name=${{ inputs.defectdojo_product_name }}" \
+          -F "engagement_name=${{ inputs.defectdojo_engagement_name }}" \
           "https://${{ inputs.defectdojo_host }}/api/v2/import-scan/"
 
