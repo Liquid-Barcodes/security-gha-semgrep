@@ -31,17 +31,25 @@ runs:
       id: create_engagement
       shell: bash
       run: |
-        curl -s -X POST -H "Content-Type: application/json" \
+        PRODUCT_ID=$(curl -v -X GET -H "Content-Type: application/json" \
+          -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
+          "https://defectdojo.lb-admin.dev/api/v2/products/" \
+          | jq '.results[] | select(.name == "${{ inputs.defectdojo_product_name }}") | .id')
+        echo "DefectDojo product ID is $PRODUCT_ID"
+
+        curl -v -X POST -H "Content-Type: application/json" \
           -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -d "{
             \"name\": \"${{ inputs.defectdojo_engagement_name }}\",
-            \"product\": \"${{ inputs.defectdojo_product_name }}\",
+            \"product\": $PRODUCT_ID,
             \"status\": \"In Progress\",
             \"target_start\": \"$(date -Iseconds)\",
             \"target_end\": \"$(date -Iseconds)\"
           }" \
           "https://${{ inputs.defectdojo_host }}/api/v2/engagements/" \
-          | tee > dd_response.json
+          > dd_response.json
+
+        cat dd_response.json
         ENGAGEMENT_ID = $( jq -r '.id' dd_response.json )
         echo "Created engagement ID: $NEW_ENG_ID"
         echo "engagement_id=$NEW_ENG_ID" >> $GITHUB_OUTPUT
