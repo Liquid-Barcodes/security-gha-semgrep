@@ -32,7 +32,7 @@ runs:
       shell: bash
       run: |
         ENGAGEMENT_ID=$(curl -s -X POST -H "Content-Type: application/json" \
-          -H "Authorization: Token $DD_TOKEN" \
+          -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -d "{
             \"name\": \"${{ inputs.defectdojo_engagement_name }}\",
             \"product\": \"${{ inputs.defectdojo_product_name }}\",
