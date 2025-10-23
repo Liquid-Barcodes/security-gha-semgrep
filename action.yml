@@ -5,6 +5,9 @@ inputs:
   defectdojo_token:
     description: "Token to use to submit data to DefectDojo"
     required: true
+  defectdojo_host:
+    description: "Hostname of DefectDojo"
+    required: true
   paths_ignored:
     description: "List of paths or patterns to ignore"
     required: false
@@ -42,5 +45,5 @@ runs:
           -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
           -F "file=@semgrep-report.json" \
           -F "scan_type=Semgrep JSON Report" \
-          https://defectdojo.lb-admin.dev/api/v2/import-scan/
+          "https://${{ inputs.defectdojo_host }}/api/v2/import-scan/
 
