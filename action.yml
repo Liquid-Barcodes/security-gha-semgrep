@@ -40,6 +40,7 @@ runs:
       continue-on-error: true
 
     - name: Upload to DefectDojo
+      shell: bash
       run: |
         curl -sS -X POST \
           -H "Authorization: Token ${{ inputs.defectdojo_token }}" \
