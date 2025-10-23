@@ -33,16 +33,13 @@ runs:
       shell: bash
       continue-on-error: true
 
-    - name: Export report
-      shell: bash
+    - name: Upload to DefectDojo
       run: |
-        cat semgrep-report.json
-        
+        curl -sS -X POST \
+          -H "Authorization: Token $DEFECTDOJO_API_TOKEN" \
+          -F "file=@semgrep-report.json" \
+          -F "scan_type=Semgrep JSON Report" \
+          https://defectdojo.lb-admin.dev/api/v2/import-scan/
+      env:
+        DEFECTDOJO_API_TOKEN: ${{ secrets.DEFECTDOJO_API_TOKEN }}
 
-# This requires full GHAS Code Scanning enabled for the repo.
-# watch your money burn!
-#
-#    - name: Upload Semgrep Results to GitHub
-#      uses: github/codeql-action/upload-sarif@v3
-#      with:
-#        sarif_file: semgrep-results.sarif
